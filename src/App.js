@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from "react";
+import ProductForm from './components/Furm';
+import ProductList from './components/List';
 
 function App() {
+  const [productos, setProductos] = useState([]);
+
+  const add_Product = (producto) => {
+    setProductos([...productos, producto]);
+  };
+
+  const delete_Product = (index) => {
+    const newProducts = [...productos];
+    newProducts.splice(index, 1);
+    setProductos(newProducts);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+    <div className='form_display_container'>
+      <h1 className='title'>Crear productos nuevos</h1>
+      <ProductForm assign_Producto={add_Product} />
+      </div>
+      <div className='display_products'>
+      <ProductList productos={productos} eliminarProducto={delete_Product} />
+      </div>
     </div>
   );
 }
